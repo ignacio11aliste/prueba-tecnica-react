@@ -4,15 +4,15 @@ import './App.css'
 const CAT_ENDPOINT_RAMDOM_FACT = 'https://catfact.ninja/fact'
 //  CAT_ENDPOINT_IMAGE_URL = `https://cataas.com/cat/says/${firstword}?size=50&color=red&json=true`;
 const CAT_PREFIX_IMAGE_URL = 'https://cataas.com'
-export function App () {
+export function App() {
   const [fact, setFact] = useState()
   const [imageUrl, setImageUrl] = useState()
 
   // no puedes usar react query ,swr,axios,apollo
   useEffect(() => {
     fetch(CAT_ENDPOINT_RAMDOM_FACT)
-      .then((res) => res.json())
-      .then((data) => {
+      .then(res => res.json())
+      .then(data => {
         const { fact } = data
         setFact(fact)
       })
@@ -27,8 +27,8 @@ export function App () {
     fetch(
       `https://cataas.com/cat/says/${threefirstWords}?size=50&color=red&json=true`
     )
-      .then((res) => res.json())
-      .then((response) => {
+      .then(res => res.json())
+      .then(response => {
         const { url } = response
         setImageUrl(url)
       })
