@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
+import { getRandomFact } from './services/fact'
 
-const CAT_ENDPOINT_RAMDOM_FACT = 'https://catfact.ninja/fact'
 //  CAT_ENDPOINT_IMAGE_URL = `https://cataas.com/cat/says/${firstword}?size=50&color=red&json=true`;
 const CAT_PREFIX_IMAGE_URL = 'https://cataas.com'
 export function App() {
@@ -10,12 +10,7 @@ export function App() {
 
   // no puedes usar react query ,swr,axios,apollo
   useEffect(() => {
-    fetch(CAT_ENDPOINT_RAMDOM_FACT)
-      .then(res => res.json())
-      .then(data => {
-        const { fact } = data
-        setFact(fact)
-      })
+    getRandomFact().then(setFact)
   }, [])
 
   // Para recuperar la imagen cada vez que tenemos una cita nueva
@@ -34,9 +29,15 @@ export function App() {
       })
   }, [fact])
 
+  const handleclick = async () => {
+    const newFact = await getRandomFact(setFact)
+    setFact(newFact)
+  }
+
   return (
     <main>
       <h1>App de gatitos</h1>
+      <button onClick={handleclick}>Get new Fact</button>
       {fact && <p>{fact}</p>}
       {imageUrl && (
         <img
